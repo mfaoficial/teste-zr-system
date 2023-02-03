@@ -15,7 +15,7 @@
     - [Pré-requisitos](#pré-requisitos)
     - [🎲 Rodando a aplicação](#-rodando-a-aplicação)
     - [🛠 Tecnologias](#-tecnologias)
-    - [�‍💻 Contribuidores](#-contribuidores)
+    - [👨‍💻 Contribuidores](#-contribuidores)
     - [🦸 Autor](#-autor)
 
 ---
@@ -72,7 +72,7 @@ $ acessar o endereço definido em seu programa de servidor local. Ex.: http://lo
 
 As seguintes ferramentas foram usadas na construção do projeto:
 
-- [Laravel 8.75](https://codeigniter.com/user_guide/intro/index.html)
+- [Laravel 8.75](https://laravel.com/docs/8.x/installation)
 - [PHP 8.1.9](https://www.php.net/)
 - [Composer](https://getcomposer.org/)
 
