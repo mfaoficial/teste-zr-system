@@ -2,8 +2,6 @@
 
 ## Projeto desenvolvido por Matheus F. Aquino
 
-![Badge](https://img.shields.io/badge/CRUD-Pessoas-v1.0.0-blue)
-
 ---
 
 Índice
@@ -17,12 +15,6 @@
     - [🛠 Tecnologias](#-tecnologias)
     - [👨‍💻 Contribuidores](#-contribuidores)
     - [🦸 Autor](#-autor)
-
----
-
-<h4 align="center">
- 🚧  Alrisha 🚀 Em construção...  🚧
-</h4>
 
 ---
 
