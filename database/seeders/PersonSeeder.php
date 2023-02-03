@@ -30,7 +30,7 @@ class PersonSeeder extends Seeder
             'city'        => 'Boa Vista',
             'state'       => 'RR',
             'phone_type'  => 'Celular',
-            'cell_phone'  => '(95) 99180-9088',
+            'phone'       => '(95) 99180-9088',
         ]);
         DB::table('persons')->insert([
             'name'        => 'Isabela Joana Bruna Nunes',
@@ -81,7 +81,7 @@ class PersonSeeder extends Seeder
             'city'        => 'Manaus',
             'state'       => 'AM',
             'phone_type'  => 'Celular',
-            'cell_phone'  => '(92) 99307-2944',
+            'phone'       => '(92) 99307-2944',
         ]);
         DB::table('persons')->insert([
             'name'        => 'Sara Rita Cláudia Galvão',
@@ -98,7 +98,7 @@ class PersonSeeder extends Seeder
             'city'        => 'Natal',
             'state'       => 'RN',
             'phone_type'  => 'Celular',
-            'cell_phone'  => '(84) 99870-8188',
+            'phone'       => '(84) 99870-8188',
         ]);
     }
 }

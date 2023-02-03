@@ -17,6 +17,9 @@
     <!-- SweetAlert -->
     <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.min.css" rel="stylesheet">
 
+    <!-- DataTable -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.1/css/dataTables.bootstrap5.min.css">
+
     <style>
         body {
             background-color: #ced0d4;
@@ -33,10 +36,10 @@
 
                 <div class="card">
                     <div class="card-body">
-                        <div class="d-flex justify-content-end">
+                        <div class="d-flex justify-content-end mb-4">
                             <button aria-controls="offcanvasRight" class="btn btn-outline-dark"
                                 data-bs-target="#offcanvasRight" data-bs-toggle="offcanvas" type="button">
-                                <i aria-hidden="true" class="fa fa-plus-circle"></i> Adicionar Novo
+                                <i aria-hidden="true" class="fa fa-plus-circle"></i> Adicionar Nova Pessoa
                             </button>
                         </div>
                         <table class="mt-4 table" id="personsTable">
@@ -55,76 +58,6 @@
                                 </th>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>Isabela Daiane Isabela Cavalcanti</td>
-                                    <td>(95) 99180-9088</td>
-                                    <td>isabela_daiane_cavalcanti@sinalmanaus.com.br</td>
-                                    <td>
-                                        <button aria-controls="offcanvasRight" class="btn btn-outline-dark"
-                                            data-bs-target="#offcanvasRight" data-bs-toggle="offcanvas" type="button">
-                                            <i aria-hidden="true" class="fa fa-pencil"></i>
-                                        </button>
-                                        <button class="btn btn-outline-danger deleteBtn" type="button">
-                                            <i aria-hidden="true" class="fa fa-trash-o"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Emanuel José da Rocha</td>
-                                    <td>(61) 99850-9485</td>
-                                    <td>emanuel-darocha75@almaquinas.com.br</td>
-                                    <td>
-                                        <button aria-controls="offcanvasRight" class="btn btn-outline-dark"
-                                            data-bs-target="#offcanvasRight" data-bs-toggle="offcanvas" type="button">
-                                            <i aria-hidden="true" class="fa fa-pencil"></i>
-                                        </button>
-                                        <button class="btn btn-outline-danger deleteBtn" type="button">
-                                            <i aria-hidden="true" class="fa fa-trash-o"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Isabela Joana Bruna Nunes</td>
-                                    <td>(82) 98322-3292</td>
-                                    <td>isabela.joana.nunes@br.inter.net</td>
-                                    <td>
-                                        <button aria-controls="offcanvasRight" class="btn btn-outline-dark"
-                                            data-bs-target="#offcanvasRight" data-bs-toggle="offcanvas" type="button">
-                                            <i aria-hidden="true" class="fa fa-pencil"></i>
-                                        </button>
-                                        <button class="btn btn-outline-danger deleteBtn" type="button">
-                                            <i aria-hidden="true" class="fa fa-trash-o"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Diego Jorge Gabriel Viana</td>
-                                    <td>(92) 99307-2944</td>
-                                    <td>diego_jorge_viana@icloub.com</td>
-                                    <td>
-                                        <button aria-controls="offcanvasRight" class="btn btn-outline-dark"
-                                            data-bs-target="#offcanvasRight" data-bs-toggle="offcanvas" type="button">
-                                            <i aria-hidden="true" class="fa fa-pencil"></i>
-                                        </button>
-                                        <button class="btn btn-outline-danger deleteBtn" type="button">
-                                            <i aria-hidden="true" class="fa fa-trash-o"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Sara Rita Cláudia Galvão</td>
-                                    <td>(84) 99870-8188</td>
-                                    <td>sararitagalvao@novotempo.com</td>
-                                    <td>
-                                        <button aria-controls="offcanvasRight" class="btn btn-outline-dark"
-                                            data-bs-target="#offcanvasRight" data-bs-toggle="offcanvas" type="button">
-                                            <i aria-hidden="true" class="fa fa-pencil"></i>
-                                        </button>
-                                        <button class="btn btn-outline-danger deleteBtn" type="button">
-                                            <i aria-hidden="true" class="fa fa-trash-o"></i>
-                                        </button>
-                                    </td>
-                                </tr>
                             </tbody>
                         </table>
 
@@ -289,6 +222,13 @@
     <!-- SweetAlert -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.1/dist/sweetalert2.all.min.js"></script>
 
+    <!-- DataTable -->
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js">
+    </script>
+    <script type="text/javascript" charset="utf8"
+        src="https://cdn.datatables.net/1.13.1/js/dataTables.bootstrap5.min.js">
+    </script>
+
     <!-- Validação de formulário ao clicar em salvar -->
     <script>
         (() => {
@@ -314,19 +254,46 @@
     <!-- Confirmação de exclusão de pessoa -->
     <script>
         $(document).ready(function() {
-            $('.deleteBtn').on('click', function(e) {
+            $(document).on('click', '.deleteBtn', function (event) {
+                event.preventDefault();
+
                 Swal.fire({
-                    title: 'Do you want to save the changes?',
-                    showDenyButton: true,
-                    showCancelButton: true,
-                    confirmButtonText: 'Save',
-                    denyButtonText: `Don't save`,
+                    title: 'Você tem certeza que deseja excluir esta pessoa? Esta ação é irreversível.',
+                    icon: 'warning',
+					showCancelButton: true,
+					confirmButtonColor: '#3085d6',
+					cancelButtonColor: '#d33',
+					confirmButtonText: 'Sim, deletar!',
+					cancelButtonText: 'Cancelar'
                 }).then((result) => {
-                    /* Read more about isConfirmed, isDenied below */
                     if (result.isConfirmed) {
-                        Swal.fire('Saved!', '', 'success')
-                    } else if (result.isDenied) {
-                        Swal.fire('Changes are not saved', '', 'info')
+                        $.ajax({
+                            headers: {
+                                'X-CSRF-TOKEN': "{{csrf_token()}}",
+                            },
+                            url: "{{ route('persons.delete') }}",
+                            type: 'DELETE',
+                            data: {
+                                id: $(this).data('id')
+                            },
+                            success: function (data) {
+                                if(data.success) {
+                                    Swal.fire('Pessoa Excluída com Sucesso!', '', 'success')
+                                    setTimeout(function() {
+										location.reload();
+									}, 2000)
+                                } else {
+									Swal.fire(
+										'Falhou! Entre em contato com o administrador do sistema.',
+										'',
+										'error'
+									)
+									setTimeout(function() {
+										location.reload();
+									}, 2000)
+								}
+                            }
+                        });
                     }
                 })
             });
@@ -396,6 +363,48 @@
             $('#cellPhone').mask('(00) 00000-0000', {placeholder: "(__) _____-____"});
             $('#phone').mask('(00) 0000-0000', {placeholder: "(__) ____-____"});
             $('#zipCode').mask('00000-000', {placeholder: "_____-___"});
+        });
+    </script>
+
+    <!-- Buscar todas as pessoas cadastradas -->
+    <script>
+        $(document).ready(function() {
+            $('#personsTable').DataTable({
+                processing: true,
+                serverSide: true,
+                ordering: false,
+                bLengthChange: false,
+                lengthMenu: [10],
+                ajax: "{{ route('persons.getAll') }}",
+                columns: [
+                    {data: 'name', name: 'name'},
+                    {data: 'phone', name: 'phone'},
+                    {data: 'district', name: 'district'},
+                    {
+                        data: 'action',
+                        name: 'action',
+                        orderable: true,
+                        searchable: true
+                    },
+                ],
+                "oLanguage": {
+                    "sProcessing": "Processando...",
+                    "sLengthMenu": "Mostrar _MENU_ registros",
+                    "sZeroRecords": "Não foram encontrados resultados",
+                    "sInfo": "Mostrando de _START_ at&eacute; _END_ de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando de 0 at&eacute; 0 de 0 registros",
+                    "sInfoFiltered": "(filtrado de _MAX_ registros no total)",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar:",
+                    "sUrl": "",
+                    "oPaginate": {
+                        "sFirst": "Primeiro",
+                        "sPrevious": "Anterior",
+                        "sNext": "Seguinte",
+                        "sLast": "Último"
+                    }
+                },
+            });
         });
     </script>
 </body>

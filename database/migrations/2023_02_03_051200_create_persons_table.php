@@ -30,8 +30,7 @@ class CreatePersonsTable extends Migration
             $table->string('city');
             $table->string('state');
             $table->string('phone_type');
-            $table->string('phone')->nullable();
-            $table->string('cell_phone')->nullable();
+            $table->string('phone');
             $table->timestamps();
         });
     }
