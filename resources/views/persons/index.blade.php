@@ -95,19 +95,19 @@
                     <div class="col">
                         <label class="form-label" for="type">Tipo ... </label>
                         <select class="form-select" id="type" name="type" required>
-                            <option selected>Selecione...</option>
+                            <option value="" selected>Selecione...</option>
                             <option value="Pessoa Física">Pessoa Física</option>
                             <option value="Pessoa Jurídica">Pessoa Jurídica</option>
                         </select>
                         <div class="alert alert-danger" style="display:none;"></div>
                     </div>
                     <div class="col">
-                        <div class="mb-3" id="cpfDiv">
+                        <div class="mb-3" id="cpfDiv" style="display:none;">
                             <label class="form-label" for="cpf">CPF</label>
                             <input class="form-control" id="cpf" name="cpf" type="text">
                             <div class="alert alert-danger" style="display:none;"></div>
                         </div>
-                        <div class="mb-3" id="cnpjDiv">
+                        <div class="mb-3" id="cnpjDiv" style="display:none;">
                             <label class="form-label" for="cnpj">CNPJ</label>
                             <input class="form-control" id="cnpj" name="cnpj" type="text">
                             <div class="alert alert-danger" style="display:none;"></div>
@@ -116,7 +116,7 @@
                 </div>
 
                 <div class="row">
-                    <div class="col">
+                    <div class="col" id="rgDiv" style="display:none;">
                         <div class="mb-3">
                             <label class="form-label" for="rg">Identidade (RG)</label>
                             <input class="form-control" id="rg" name="rg" type="text">
@@ -208,7 +208,7 @@
                     <div class="col-4">
                         <label for="phoneType" class="form-label">Tipo de Telefone</label>
                         <select class="form-select form-select-lg" name="phone_type" id="phoneType">
-                            <option selected>Selecione uma opção...</option>
+                            <option value="" selected>Selecione uma opção...</option>
                             <option value="Fixo">Fixo</option>
                             <option value="Celular">Celular</option>
                         </select>
@@ -473,14 +473,22 @@
             $('#type').on('change', function() {
                 if (this.value == 'Pessoa Física') {
                     $('#typeCpf').val('1');
+                    $('#typeCnpj').val('');
                     $('#cpf').attr('required', true);
                     $('#rg').attr('required', true);
                     $('#cnpj').removeAttr('required');
+                    $('#cnpjDiv').hide();
+                    $('#cpfDiv').show();
+                    $('#rgDiv').show();
                 } else {
                     $('#typeCnpj').val('1');
+                    $('#typeCpf').val('');
                     $('#cnpj').attr('required', true);
                     $('#cpf').removeAttr('required');
                     $('#rg').removeAttr('required');
+                    $('#cpfDiv').hide();
+                    $('#cnpjDiv').show();
+                    $('#rgDiv').hide();
                 }
             });
         });

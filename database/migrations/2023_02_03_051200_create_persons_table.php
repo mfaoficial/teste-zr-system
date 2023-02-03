@@ -19,7 +19,7 @@ class CreatePersonsTable extends Migration
             $table->string('type');
             $table->string('cpf')->nullable();
             $table->string('cnpj')->nullable();
-            $table->string('rg');
+            $table->string('rg')->nullable();
             $table->date('birth_date');
             $table->string('person_type');
             $table->string('zip_code');

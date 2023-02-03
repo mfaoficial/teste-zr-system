@@ -44,13 +44,14 @@ class PersonsController extends Controller
     public function store(Request $request)
     {
         if ($request->ajax()) {
+            $data      = $request->all();
             $validator = \Illuminate\Support\Facades\Validator::make(
-                $request->all(),
+                $data,
                 [
                     'name'        => 'required',
                     'type'        => 'required',
-                    'cpf'         => 'required_with:typeCpf',
-                    'cnpj'        => 'required_with:typeCnpj',
+                    'cpf'         => 'required_with:typeCpf|cpf',
+                    'cnpj'        => 'required_with:typeCnpj|cnpj',
                     'rg'          => 'required_with:typeCpf',
                     'birth_date'  => 'required',
                     'person_type' => 'required',
@@ -67,7 +68,9 @@ class PersonsController extends Controller
                     'name.required'        => 'O campo Nome é obrigatório.',
                     'type.required'        => 'O campo Tipo... é obrigatório.',
                     'cpf.required_with'    => 'O campo CPF é obrigatório.',
+                    'cpf.cpf'              => 'Insira um CPF válido.',
                     'cnpj.required_with'   => 'O campo CNPJ é obrigatório.',
+                    'cnpj.cnpj'            => 'Insira um CNPJ válido.',
                     'rg.required_with'     => 'O campo RG é obrigatório para pessoas Físicas.',
                     'birth_date.required'  => 'O campo Data de Nascimento é obrigatório.',
                     'person_type.required' => 'O campo Estado Civil é obrigatório.',
@@ -88,7 +91,6 @@ class PersonsController extends Controller
                     "errors"  => $validator->errors()
                 ]);
             } else {
-                $data = $request->all();
                 $data['birth_date'] = Carbon::createFromFormat('d/m/Y', $request['birth_date'])->format('Y-m-d');
 
                 return response()->json([
