@@ -75,8 +75,8 @@
         <div class="offcanvas-body">
             <form id="personForm" class="needs-validation" novalidate>
 
-                <input name="typeCpf" value="" type="hidden">
-                <input name="typeCnpj" value="" type="hidden">
+                <input id="typeCpf" name="typeCpf" value="" type="hidden">
+                <input id="typeCnpj" name="typeCnpj" value="" type="hidden">
 
                 <div id="errors-list"></div>
 
@@ -472,18 +472,19 @@
         $(document).ready(function() {
             $('#type').on('change', function() {
                 if (this.value == 'Pessoa Física') {
-                    $('#typeCpf').attr('value', '1');
+                    $('#typeCpf').val('1');
                     $('#cpf').attr('required', true);
                     $('#rg').attr('required', true);
                     $('#cnpj').removeAttr('required');
                 } else {
-                    $('#typeCnpj').attr('value', '1');
+                    $('#typeCnpj').val('1');
                     $('#cnpj').attr('required', true);
                     $('#cpf').removeAttr('required');
                     $('#rg').removeAttr('required');
                 }
             });
         });
+    </script>
 </body>
 
 </html>
