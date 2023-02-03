@@ -51,6 +51,9 @@ $ composer install
 # Atualize as dependências
 $ composer update
 
+# Gere uma chave para a aplicação
+$ php artisan key:generate
+
 # Criando o DB
 $ Crie um banco de dados com o nome ```teste-zr-system```
 
