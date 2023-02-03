@@ -77,6 +77,7 @@
 
                 <input id="typeCpf" name="typeCpf" value="" type="hidden">
                 <input id="typeCnpj" name="typeCnpj" value="" type="hidden">
+                <input id="id" name="id" value="" type="hidden">
 
                 <div id="errors-list"></div>
 
@@ -493,6 +494,37 @@
             });
         });
     </script>
+
+    <!-- Quando clica no botão de editar preenche os dados do formulário e o campo hidden com ID -->
+    <script>
+        $(document).ready(function() {
+            $(document).on('click', '.editBtn', function() {
+                let id = $(this).data('id');
+                $.ajax({
+                    url: "/persons/" + id + "/edit",
+                    dataType: "json",
+                    success: function(data) {
+                        $('#name').val(data.result.name);
+                        $('#birthDate').val(data.result.birthDate);
+                        $('#type').val(data.result.type);
+                        $('#cpf').val(data.result.cpf);
+                        $('#rg').val(data.result.rg);
+                        $('#cnpj').val(data.result.cnpj);
+                        $('#email').val(data.result.email);
+                        $('#cellPhone').val(data.result.cellPhone);
+                        $('#phone').val(data.result.phone);
+                        $('#zipCode').val(data.result.zipCode);
+                        $('#street').val(data.result.street);
+                        $('#number').val(data.result.number);
+                        $('#complement').val(data.result.complement);
+                        $('#district').val(data.result.district);
+                        $('#city').val(data.result.city);
+                        $('#state').val(data.result.state);
+                        $('#id').val(id);
+                    }
+                });
+            });
+        });
 </body>
 
 </html>

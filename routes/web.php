@@ -13,7 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::resource('/', App\Http\Controllers\PersonsController::class);
+Route::get('/', [App\Http\Controllers\PersonsController::class, 'index']);
 Route::get('/getall', [App\Http\Controllers\PersonsController::class, 'getAll'])->name('persons.getAll');
 Route::delete('/delete', [App\Http\Controllers\PersonsController::class, 'delete'])->name('persons.delete');
 Route::post('/store', [App\Http\Controllers\PersonsController::class, 'store'])->name('persons.store');
+Route::put('/update', [App\Http\Controllers\PersonsController::class, 'update'])->name('persons.update');
