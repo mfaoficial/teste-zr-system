@@ -97,7 +97,10 @@ class PersonsController extends Controller
                     "errors"  => $validator->errors()
                 ]);
             } else {
-                $data['birth_date'] = Carbon::createFromFormat('d/m/Y', $request['birth_date'])->format('Y-m-d');
+                $data['birth_date'] = Carbon::parse($request['birth_date'])->format('Y-m-d');
+
+                unset($data['typeCpf']);
+                unset($data['typeCnpj']);
 
                 return response()->json([
                     'success' => Person::create($data)
@@ -109,15 +112,12 @@ class PersonsController extends Controller
     public function update(Request $request)
     {
         if ($request->ajax()) {
-            $data      = $request->all();
-            $validator = \Illuminate\Support\Facades\Validator::make(
-                $data,
-                [
+            $data       = $request->all();
+
+            $validation = [
+                'rules'    => [
                     'name'        => 'required',
                     'type'        => 'required',
-                    'cpf'         => 'required_with:typeCpf|cpf',
-                    'cnpj'        => 'required_with:typeCnpj|cnpj',
-                    'rg'          => 'required_with:typeCpf',
                     'birth_date'  => 'required',
                     'person_type' => 'required',
                     'zip_code'    => 'required',
@@ -129,13 +129,9 @@ class PersonsController extends Controller
                     'phone_type'  => 'required',
                     'phone'       => 'required',
                 ],
-                [
+                'messages' => [
                     'name.required'        => 'O campo Nome é obrigatório.',
                     'type.required'        => 'O campo Tipo... é obrigatório.',
-                    'cpf.required_with'    => 'O campo CPF é obrigatório.',
-                    'cpf.cpf'              => 'Insira um CPF válido.',
-                    'cnpj.required_with'   => 'O campo CNPJ é obrigatório.',
-                    'cnpj.cnpj'            => 'Insira um CNPJ válido.',
                     'rg.required_with'     => 'O campo RG é obrigatório para pessoas Físicas.',
                     'birth_date.required'  => 'O campo Data de Nascimento é obrigatório.',
                     'person_type.required' => 'O campo Estado Civil é obrigatório.',
@@ -148,6 +144,24 @@ class PersonsController extends Controller
                     'phone_type.required'  => 'O campo Tipo de Telefone é obrigatório.',
                     'phone.required'       => 'O campo Telefone é obrigatório.',
                 ]
+            ];
+
+            if ($data['cnpj'] != null) {
+                $validation['rules']['cnpj']                  = 'required_with:typeCnpj|cnpj';
+                $validation['messages']['cnpj.required_with'] = 'O campo CNPJ é obrigatório.';
+                $validation['messages']['cnpj.cnpj']          = 'Insira um CNPJ válido.';
+            } else {
+                $validation['rules']['cpf']                  = 'required_with:typeCnpj|cpf';
+                $validation['messages']['cpf.required_with'] = 'O campo CPF é obrigatório.';
+                $validation['messages']['cpf.cpf']           = 'Insira um CPF válido.';
+                $validation['rules']['rg']                   = 'required_with:typeCpf';
+                $validation['messages']['rg.required_with']  = 'O campo RG é obrigatório para pessoas Físicas.';
+            }
+
+            $validator = \Illuminate\Support\Facades\Validator::make(
+                $data,
+                $validation['rules'],
+                $validation['messages']
             );
 
             if ($validator->fails()) {
@@ -156,7 +170,10 @@ class PersonsController extends Controller
                     "errors"  => $validator->errors()
                 ]);
             } else {
-                $data['birth_date'] = Carbon::createFromFormat('d/m/Y', $request['birth_date'])->format('Y-m-d');
+                $data['birth_date'] = Carbon::parse($request['birth_date'])->format('Y-m-d');
+
+                unset($data['typeCpf']);
+                unset($data['typeCnpj']);
 
                 return response()->json([
                     'success' => Person::where('id', $data['id'])->update($data)

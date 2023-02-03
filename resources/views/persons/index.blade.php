@@ -79,8 +79,6 @@
                 <input id="typeCnpj" name="typeCnpj" value="" type="hidden">
                 <input id="id" name="id" value="" type="hidden">
 
-                <div id="errors-list"></div>
-
                 <h4>Dados Pessoais</h4>
                 <hr>
 
@@ -456,7 +454,32 @@
                             } else {
                                 form.removeClass('was-validated');
                                 $.each(data.errors, function (key, value) {
-                                    console.log(key);
+                                    form.find('[name="' + key + '"]').addClass(
+                                        'is-invalid');
+                                    form.find('[name="' + key + '"]').next().html(value)
+                                    form.find('[name="' + key + '"]').next().show();
+                                });
+                            }
+                        }
+                    });
+                } else {
+                    $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': "{{csrf_token()}}",
+                        },
+                        url: "{{ route('persons.store') }}",
+                        method: "POST",
+                        data: form.serialize(),
+                        dataType: "json",
+                        success: function(data) {
+                            if(data.success) {
+                                Swal.fire('Pessoa Cadastrada com Sucesso!', '', 'success')
+                                setTimeout(function() {
+                                    location.reload();
+                                }, 2000)
+                            } else {
+                                form.removeClass('was-validated');
+                                $.each(data.errors, function (key, value) {
                                     form.find('[name="' + key + '"]').addClass(
                                         'is-invalid');
                                     form.find('[name="' + key + '"]').next().html(value)
@@ -466,33 +489,6 @@
                         }
                     });
                 }
-
-                $.ajax({
-                    headers: {
-                        'X-CSRF-TOKEN': "{{csrf_token()}}",
-                    },
-                    url: "{{ route('persons.store') }}",
-                    method: "POST",
-                    data: form.serialize(),
-                    dataType: "json",
-                    success: function(data) {
-                        if(data.success) {
-                            Swal.fire('Pessoa Cadastrada com Sucesso!', '', 'success')
-                            setTimeout(function() {
-                                location.reload();
-                            }, 2000)
-                        } else {
-                            form.removeClass('was-validated');
-                            $.each(data.errors, function (key, value) {
-                                console.log(key);
-                                form.find('[name="' + key + '"]').addClass(
-                                    'is-invalid');
-                                form.find('[name="' + key + '"]').next().html(value)
-                                form.find('[name="' + key + '"]').next().show();
-                            });
-                        }
-                    }
-                });
             });
         });
     </script>
