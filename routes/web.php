@@ -14,3 +14,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::resource('/', App\Http\Controllers\PersonsController::class);
+Route::get('/getall', [App\Http\Controllers\PersonsController::class, 'getAll'])->name('persons.getAll');
+Route::delete('/delete', [App\Http\Controllers\PersonsController::class, 'delete'])->name('persons.delete');
