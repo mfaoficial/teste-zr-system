@@ -73,7 +73,12 @@
             <button aria-label="Close" class="btn-close" data-bs-dismiss="offcanvas" type="button"></button>
         </div>
         <div class="offcanvas-body">
-            <form class="needs-validation" novalidate>
+            <form id="personForm" class="needs-validation" novalidate>
+
+                <input name="typeCpf" value="" type="hidden">
+                <input name="typeCnpj" value="" type="hidden">
+
+                <div id="errors-list"></div>
 
                 <h4>Dados Pessoais</h4>
                 <hr>
@@ -81,27 +86,31 @@
                 <div class="row">
                     <div class="mb-3">
                         <label class="form-label" for="name">Nome Completo</label>
-                        <input class="form-control" id="name" required type="text">
+                        <input class="form-control" id="name" name="name" required type="text">
+                        <div class="alert alert-danger" style="display:none;"></div>
                     </div>
                 </div>
 
                 <div class="row">
                     <div class="col">
-                        <label class="form-label" for="personType">Tipo ... </label>
-                        <select class="form-select" id="personType" required>
+                        <label class="form-label" for="type">Tipo ... </label>
+                        <select class="form-select" id="type" name="type" required>
                             <option selected>Selecione...</option>
                             <option value="Pessoa Física">Pessoa Física</option>
                             <option value="Pessoa Jurídica">Pessoa Jurídica</option>
                         </select>
+                        <div class="alert alert-danger" style="display:none;"></div>
                     </div>
                     <div class="col">
                         <div class="mb-3" id="cpfDiv">
                             <label class="form-label" for="cpf">CPF</label>
-                            <input class="form-control" id="cpf" type="text">
+                            <input class="form-control" id="cpf" name="cpf" type="text">
+                            <div class="alert alert-danger" style="display:none;"></div>
                         </div>
                         <div class="mb-3" id="cnpjDiv">
                             <label class="form-label" for="cnpj">CNPJ</label>
-                            <input class="form-control" id="cnpj" type="text">
+                            <input class="form-control" id="cnpj" name="cnpj" type="text">
+                            <div class="alert alert-danger" style="display:none;"></div>
                         </div>
                     </div>
                 </div>
@@ -110,18 +119,20 @@
                     <div class="col">
                         <div class="mb-3">
                             <label class="form-label" for="rg">Identidade (RG)</label>
-                            <input class="form-control" id="rg" required type="text">
+                            <input class="form-control" id="rg" name="rg" type="text">
+                            <div class="alert alert-danger" style="display:none;"></div>
                         </div>
                     </div>
                     <div class="col">
                         <div class="mb-3">
                             <label class="form-label" for="birthDate">Data de Nascimento</label>
-                            <input class="form-control" id="birthDate" required type="text">
+                            <input class="form-control" id="birthDate" name="birth_date" required type="text">
+                            <div class="alert alert-danger" style="display:none;"></div>
                         </div>
                     </div>
                     <div class="col">
                         <label class="form-label" for="personType">Estado Civil</label>
-                        <select class="form-select" id="personType" required>
+                        <select class="form-select" id="personType" name="person_type" required>
                             <option value="">Selecione...</option>
                             <option value="1">Solteiro</option>
                             <option value="2">Casado</option>
@@ -129,6 +140,7 @@
                             <option value="2">Divorciado</option>
                             <option value="2">Viuvo</option>
                         </select>
+                        <div class="alert alert-danger" style="display:none;"></div>
                     </div>
                 </div>
 
@@ -137,7 +149,8 @@
                 <div class="row">
                     <div class="mb-3">
                         <label class="form-label" for="zipCode">CEP</label>
-                        <input class="form-control" id="zipCode" required type="text">
+                        <input class="form-control" id="zipCode" name="zip_code" required type="text">
+                        <div class="alert alert-danger" style="display:none;"></div>
                     </div>
                 </div>
 
@@ -145,19 +158,21 @@
                     <div class="col-6">
                         <div class="mb-3">
                             <label class="form-label" for="street">Rua</label>
-                            <input class="form-control" id="street" required type="text">
+                            <input class="form-control" id="street" name="street" required type="text">
+                            <div class="alert alert-danger" style="display:none;"></div>
                         </div>
                     </div>
                     <div class="col-2">
                         <div class="mb-3">
                             <label class="form-label" for="number">N°</label>
-                            <input class="form-control" id="number" required type="number">
+                            <input class="form-control" id="number" name="number" required type="number">
+                            <div class="alert alert-danger" style="display:none;"></div>
                         </div>
                     </div>
                     <div class="col-4">
                         <div class="mb-3">
                             <label class="form-label" for="complement">Complemento</label>
-                            <input class="form-control" id="complement" type="text">
+                            <input class="form-control" id="complement" name="complement" type="text">
                         </div>
                     </div>
                 </div>
@@ -166,19 +181,22 @@
                     <div class="col">
                         <div class="mb-3">
                             <label class="form-label" for="district">Bairro</label>
-                            <input class="form-control" id="district" required type="text">
+                            <input class="form-control" id="district" name="district" required type="text">
+                            <div class="alert alert-danger" style="display:none;"></div>
                         </div>
                     </div>
                     <div class="col">
                         <div class="mb-3">
                             <label class="form-label" for="city">Cidade</label>
-                            <input class="form-control" id="city" required type="text">
+                            <input class="form-control" id="city" name="city" required type="text">
+                            <div class="alert alert-danger" style="display:none;"></div>
                         </div>
                     </div>
                     <div class="col">
                         <div class="mb-3">
                             <label class="form-label" for="state">Estado</label>
-                            <input class="form-control" id="state" required type="text">
+                            <input class="form-control" id="state" name="state" required type="text">
+                            <div class="alert alert-danger" style="display:none;"></div>
                         </div>
                     </div>
                 </div>
@@ -187,16 +205,20 @@
                 <hr>
 
                 <div class="row">
-                    <div class="col">
-                        <div class="mb-3">
-                            <label class="form-label" for="phone">Telefone Fixo</label>
-                            <input class="form-control" id="phone" type="text">
-                        </div>
+                    <div class="col-4">
+                        <label for="phoneType" class="form-label">Tipo de Telefone</label>
+                        <select class="form-select form-select-lg" name="phone_type" id="phoneType">
+                            <option selected>Selecione uma opção...</option>
+                            <option value="Fixo">Fixo</option>
+                            <option value="Celular">Celular</option>
+                        </select>
+                        <div class="alert alert-danger" style="display:none;"></div>
                     </div>
-                    <div class="col">
+                    <div class="col-8">
                         <div class="mb-3">
-                            <label class="form-label" for="cellPhone">Telefone Celular</label>
-                            <input class="form-control" id="cellPhone" required type="text">
+                            <label class="form-label" for="phone">Telefone</label>
+                            <input class="form-control" id="phone" name="phone" type="text">
+                            <div class="alert alert-danger" style="display:none;"></div>
                         </div>
                     </div>
                 </div>
@@ -407,6 +429,61 @@
             });
         });
     </script>
+
+    <!-- Submeter formulário -->
+    <script>
+        $(document).ready(function() {
+            $('#personForm').on('submit', function(event) {
+                event.preventDefault();
+
+                let form = $('#personForm');
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': "{{csrf_token()}}",
+                    },
+                    url: "{{ route('persons.store') }}",
+                    method: "POST",
+                    data: form.serialize(),
+                    dataType: "json",
+                    success: function(data) {
+                        if(data.success) {
+                            Swal.fire('Pessoa Cadastrada com Sucesso!', '', 'success')
+                            setTimeout(function() {
+                                location.reload();
+                            }, 2000)
+                        } else {
+                            form.removeClass('was-validated');
+                            $.each(data.errors, function (key, value) {
+                                console.log(key);
+                                form.find('[name="' + key + '"]').addClass(
+                                    'is-invalid');
+                                form.find('[name="' + key + '"]').next().html(value)
+                                form.find('[name="' + key + '"]').next().show();
+                            });
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+
+    <!-- Quando tipo de pessoa for física, CPF e RG são obrigatórios -->
+    <script>
+        $(document).ready(function() {
+            $('#type').on('change', function() {
+                if (this.value == 'Pessoa Física') {
+                    $('#typeCpf').attr('value', '1');
+                    $('#cpf').attr('required', true);
+                    $('#rg').attr('required', true);
+                    $('#cnpj').removeAttr('required');
+                } else {
+                    $('#typeCnpj').attr('value', '1');
+                    $('#cnpj').attr('required', true);
+                    $('#cpf').removeAttr('required');
+                    $('#rg').removeAttr('required');
+                }
+            });
+        });
 </body>
 
 </html>
