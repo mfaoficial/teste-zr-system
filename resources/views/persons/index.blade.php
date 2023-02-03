@@ -135,11 +135,10 @@
                         <label class="form-label" for="personType">Estado Civil</label>
                         <select class="form-select" id="personType" name="person_type" required>
                             <option value="">Selecione...</option>
-                            <option value="1">Solteiro</option>
-                            <option value="2">Casado</option>
-                            <option value="2">Separado</option>
-                            <option value="2">Divorciado</option>
-                            <option value="2">Viuvo</option>
+                            <option value="Solteiro(a)">Solteiro(a)</option>
+                            <option value="Casado(a)">Casado(a)</option>
+                            <option value="Divorciado(a)">Divorciado(a)</option>
+                            <option value="Viuvo(a)">Viuvo(a)</option>
                         </select>
                         <div class="alert alert-danger" style="display:none;"></div>
                     </div>
@@ -438,6 +437,36 @@
                 event.preventDefault();
 
                 let form = $('#personForm');
+
+                if(form.find('[name="id"]').val() != '') {
+                    $.ajax({
+                        headers: {
+                            'X-CSRF-TOKEN': "{{csrf_token()}}",
+                        },
+                        url: "{{ route('persons.update') }}",
+                        method: "PUT",
+                        data: form.serialize(),
+                        dataType: "json",
+                        success: function(data) {
+                            if(data.success) {
+                                Swal.fire('Pessoa Atualizada com Sucesso!', '', 'success')
+                                setTimeout(function() {
+                                    location.reload();
+                                }, 2000)
+                            } else {
+                                form.removeClass('was-validated');
+                                $.each(data.errors, function (key, value) {
+                                    console.log(key);
+                                    form.find('[name="' + key + '"]').addClass(
+                                        'is-invalid');
+                                    form.find('[name="' + key + '"]').next().html(value)
+                                    form.find('[name="' + key + '"]').next().show();
+                                });
+                            }
+                        }
+                    });
+                }
+
                 $.ajax({
                     headers: {
                         'X-CSRF-TOKEN': "{{csrf_token()}}",
@@ -501,30 +530,55 @@
             $(document).on('click', '.editBtn', function() {
                 let id = $(this).data('id');
                 $.ajax({
-                    url: "/persons/" + id + "/edit",
+                    url: "{{ route('persons.getPerson') }}",
                     dataType: "json",
+                    method: "GET",
+                    data: {
+                        id: id
+                    },
                     success: function(data) {
-                        $('#name').val(data.result.name);
-                        $('#birthDate').val(data.result.birthDate);
-                        $('#type').val(data.result.type);
-                        $('#cpf').val(data.result.cpf);
-                        $('#rg').val(data.result.rg);
-                        $('#cnpj').val(data.result.cnpj);
-                        $('#email').val(data.result.email);
-                        $('#cellPhone').val(data.result.cellPhone);
-                        $('#phone').val(data.result.phone);
-                        $('#zipCode').val(data.result.zipCode);
-                        $('#street').val(data.result.street);
-                        $('#number').val(data.result.number);
-                        $('#complement').val(data.result.complement);
-                        $('#district').val(data.result.district);
-                        $('#city').val(data.result.city);
-                        $('#state').val(data.result.state);
+                        $('#name').val(data.name);
+                        $('#birthDate').val(data.birth_date);
+                        $('#type option[value="' + data.type + '"]').attr('selected', '');
+                        $('#cpf').val(data.cpf);
+                        $('#rg').val(data.rg);
+                        $('#cnpj').val(data.cnpj);
+                        $('#phone').val(data.phone);
+                        $('#phoneType option[value="' + data.phone_type + '"]').attr('selected', '');
+                        $('#zipCode').val(data.zip_code);
+                        $('#personType option[value="' + data.person_type + '"]').attr('selected', '');
+                        $('#street').val(data.street);
+                        $('#number').val(data.number);
+                        $('#complement').val(data.complement);
+                        $('#district').val(data.district);
+                        $('#city').val(data.city);
+                        $('#state').val(data.state);
                         $('#id').val(id);
+
+                        if (data.type == 'Pessoa Física') {
+                            $('#typeCpf').val('1');
+                            $('#typeCnpj').val('');
+                            $('#cpf').attr('required', true);
+                            $('#rg').attr('required', true);
+                            $('#cnpj').removeAttr('required');
+                            $('#cnpjDiv').hide();
+                            $('#cpfDiv').show();
+                            $('#rgDiv').show();
+                        } else {
+                            $('#typeCnpj').val('1');
+                            $('#typeCpf').val('');
+                            $('#cnpj').attr('required', true);
+                            $('#cpf').removeAttr('required');
+                            $('#rg').removeAttr('required');
+                            $('#cpfDiv').hide();
+                            $('#cnpjDiv').show();
+                            $('#rgDiv').hide();
+                        }
                     }
                 });
             });
         });
+    </script>
 </body>
 
 </html>

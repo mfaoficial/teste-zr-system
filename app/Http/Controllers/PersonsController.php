@@ -41,9 +41,9 @@ class PersonsController extends Controller
         }
     }
 
-    public function getPerson($id)
+    public function getPerson(Request $request)
     {
-        $person = Person::findOrFail($id);
+        $person = Person::findOrFail($request->id);
         return response()->json($person);
     }
 

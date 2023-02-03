@@ -18,3 +18,4 @@ Route::get('/getall', [App\Http\Controllers\PersonsController::class, 'getAll'])
 Route::delete('/delete', [App\Http\Controllers\PersonsController::class, 'delete'])->name('persons.delete');
 Route::post('/store', [App\Http\Controllers\PersonsController::class, 'store'])->name('persons.store');
 Route::put('/update', [App\Http\Controllers\PersonsController::class, 'update'])->name('persons.update');
+Route::get('/getperson', [App\Http\Controllers\PersonsController::class, 'getPerson'])->name('persons.getPerson');
